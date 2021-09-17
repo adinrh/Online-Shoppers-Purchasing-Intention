@@ -1,0 +1,2 @@
+model_checkpoint_path: "C:/Users/adi/Documents/FourthBrain/CapstoneProject/Online-Shoppers-Purchasing-Intention/sample_data_cos_reduction.ckpt-0"
+all_model_checkpoint_paths: "C:/Users/adi/Documents/FourthBrain/CapstoneProject/Online-Shoppers-Purchasing-Intention/sample_data_cos_reduction.ckpt-0"
