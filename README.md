@@ -15,22 +15,59 @@ The data set is from "Online Shoppers Purchasing Intention Dataset Data Set" htt
 
 The goal is to develop Machine Learning Models to present a complete analysis for online shopping behavior data set.
 Description of data set:
-The data set is "online_shoppers_intention.csv". This data set represents skewed data, such that 84.5% of user journeys did NOT result in a purchase (Revenue=False)
+The data set is "online_shoppers_intention.csv". This data set represents skewed data, such that 84.5% of user journeys did NOT result in a purchase (Revenue=False).
 
-1. The dataset consists of 10 numerical and 8 categorical attributes.
-2. The 'Revenue' attribute can be used as the class label.
-3. "Administrative", "Administrative Duration", "Informational", "Informational Duration", "Product Related" and "Product Related Duration" represent the number of different types of pages visited by the visitor in that session and total time spent in each of these page categories. 
-4. The values of these features are derived from the URL information of the pages visited by the user and updated in real time when a user takes an action, e.g. moving from one page to another. 
-5. The "Bounce Rate", "Exit Rate" and "Page Value" features represent the metrics measured by "Google Analytics" for each page in the e-commerce site. 
-6. The value of "Bounce Rate" feature for a web page refers to the percentage of visitors who enter the site from that page and then leave ("bounce") without triggering any other requests to the analytics server during that session. 
-7. The value of "Exit Rate" feature for a specific web page is calculated as for all pageviews to the page and it represents the percentage that the page was seen in the last session. 
-8. The "Page Value" feature represents the average value for a web page that a user visited before completing an e-commerce transaction. 
-9. The "Special Day" feature indicates the closeness of the site visiting time to a specific special day (e.g. Mother’s Day, Valentine's Day) in which the sessions are more likely to be finalized with transaction. The value of this attribute is determined by considering the dynamics of e-commerce such as the duration between the order date and delivery date. 
-10. The dataset also includes operating system, browser, region, traffic type, visitor type as returning or new visitor, a Boolean value indicating whether the date of the visit is weekend, and month of the year.
+Dataset info: ![data/B15760_05_01.jpg](data/B15760_05_01.jpg)
 
 
 # Result and discussion:
 
+we computed the Pearson Correlation of each feature in the training dataset to vizualize the correlation.
 
+Image 1: ![imgs/Pearson_Corr.png](imgs/Pearson_Corr.png)
+
+We drop feature with high correlation (>=0.8). Correlated features in general don't improve models. Another method was using backward elimination with 5% p-value significant level selection. Based on both methods, I selected 8 important features.
+
+Image 2: ![imgs/feature_selection_plot.png](imgs/feature_selection_plot.png)
+
+
+Image 3: ![imgs/cm_GridSearch.png](imgs/cm_GridSearch.png)
+
+We then tried uisng Tpot to automate the model selection and hyperparameters, and Dask for paralleling the training jobs to gain time 
+
+Image 4: ![imgs/dask_gui.png](imgs/dask_gui.png)
+
+
+Image 5: ![imgs/cm_TeaPot.png](imgs/cm_TeaPot.png)
+
+
+We generated user-bahavior clusters based on the purchasing behavior data for the complete dataset and selected only that > 0.025 in correlation.
+
+Image 6: ![imgs/Feature_important_clustering.png](imgs/Feature_important_clustering.png)
+
+after selecting features, we implemented PCA and tNSE to reduce dimension. We used elbow method to determine the optimal number of clusters for k-means clustering.
+
+Image 7: ![imgs/summary_clustering.png](imgs/summary_clustering.png)
+
+The PCA model seems giving us better prediction clustering cumtomer behaviour. There are 4 pricipal axis which explain different custumer behaviour.
+Axis 0 (cumstumer group 1): they seems new custumers which spent more time on "administative" and "administrative duration" 
+
+
+Image 8: ![imgs/examine_cluster.png](imgs/examine_cluster.png)
+
+Task 3: We will consider having training data (with the 'Revenue' attribute) for records from June-Sept only. For all records from Oct-Dec, the 'Revenue' attribute is missing. We will build a semi-supervised self labelling model to estimate 'Revenue' for the missing records in Oct-Dec and then fit our classifier. 
+
+The label spreading semi-supervised model did a great job predicting Reveneu for February and March months.
+
+Image 9: ![imgs/Semi_supervised_test.png](imgs/Semi_supervised_test.png)
+
+
+The result was close to original data after using the self labelled data and training data together
+
+Image 10: ![imgs/Semi_supervised_rst.png](imgs/Semi_supervised_rst.png)
 
 # Conclusion:
+A series of EDAs and machine learning model selections and predictions conducted for a complete analysis for online shopping behavior.
+1. TPOT library helped giving us best model selection and prediction, and hyperparameters
+2. Clustering technigues (unspervised learning) also helped us clustering custumer behaviours.
+3. If we have missing data, labelling using semisupervised learning gives us option to fill the predictid y values.
