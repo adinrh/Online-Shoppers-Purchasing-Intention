@@ -1,5 +1,5 @@
 # Online-Shoppers-Purchasing-Intention
-Data Science Assignment to aid complete analysis of online Shopping behavior
+A complete analysis with ML approachs to explore online Shopping behavior
 ---
 
 # Background:
