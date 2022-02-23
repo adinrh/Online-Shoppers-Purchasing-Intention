@@ -1,5 +1,5 @@
 # Online-Shoppers-Purchasing-Intention
-A complete analysis with ML approachs to explore online Shopping behavior
+A complete analysis with ML approachs to explore online shopping behavior
 ---
 
 # Background:
@@ -22,7 +22,8 @@ Dataset info: ![data/B15760_05_01.jpg](data/B15760_05_01.jpg)
 
 # Result and discussion:
 
-we computed the Pearson Correlation of each feature in the training dataset to vizualize the correlation.
+Task 1: Build a predictive classification model.
+We computed the Pearson Correlation of each feature in the training dataset to vizualize the correlation.
 
 Image 1: ![imgs/Pearson_Corr.png](imgs/Pearson_Corr.png)
 
@@ -33,13 +34,15 @@ Image 2: ![imgs/feature_selection_plot.png](imgs/feature_selection_plot.png)
 
 Image 3: ![imgs/cm_GridSearch.png](imgs/cm_GridSearch.png)
 
-We then tried uisng Tpot to automate the model selection and hyperparameters, and Dask for paralleling the training jobs to gain time 
+We then tried using Tpot to automate the model selection and hyperparameters, and Dask for paralleling the training jobs to gain time 
 
 Image 4: ![imgs/dask_gui.png](imgs/dask_gui.png)
 
 
 Image 5: ![imgs/cm_TeaPot.png](imgs/cm_TeaPot.png)
 
+
+Task 2: Generate user-bahavior clusters based on the purchasing behavior data for the complete dataset.
 
 We generated user-bahavior clusters based on the purchasing behavior data for the complete dataset and selected only that > 0.025 in correlation.
 
